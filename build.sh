@@ -11,20 +11,16 @@ check_dependencies() {
     echo -e "${YELLOW}Checking system dependencies...${NC}"
     
     # 检查是否为 Ubuntu/Debian
-    if [ -f /etc/debian_version ]; then
-        # 检查并安装必要的包
-        PACKAGES="python3 python3-pip python3-venv"
-        for pkg in $PACKAGES; do
-            if ! dpkg -l | grep -q "^ii  $pkg "; then
-                echo -e "${YELLOW}Installing $pkg...${NC}"
-                sudo apt-get update
-                sudo apt-get install -y $pkg
-            fi
-        done
-    else
-        echo -e "${RED}Unsupported system, please install python3, pip3 and python3-venv manually${NC}"
-        exit 1
-    fi
+# check basic commands instead of distro
+    for cmd in python3 pip3; do
+        if ! command -v $cmd &>/dev/null; then
+            echo -e "${RED}❌ Missing dependency: $cmd${NC}"
+            echo -e "${YELLOW}Please install it manually (e.g. sudo pacman -S python-pip)${NC}"
+            exit 1
+        fi
+    done
+    echo -e "${GREEN}✅ All required dependencies found.${NC}"
+
 }
 
 # 创建并激活虚拟环境
