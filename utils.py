@@ -142,13 +142,20 @@ def get_default_browser_path(browser_type='chrome'):
             # 尝试多种可能的名称
             chrome_names = ["google-chrome", "chrome", "chromium", "chromium-browser","google-chrome-stable"]
             for name in chrome_names:
-                try:
-                    import shutil
-                    path = shutil.which(name)
-                    if path:
-                        return path
-                except:
-                    pass
+                import shutil
+                path = shutil.which(name)
+                if path:
+                    return path
+            fallback_paths = [
+                "/usr/bin/google-chrome-stable",
+                "/usr/bin/google-chrome",
+                "/opt/google/chrome/google-chrome"
+            ]
+            for path in fallback_paths:
+                if os.path.exists(path):
+                    return path
+            # Final fallback
+            return "/usr/bin/google-chrome-stable"
             return "/usr/bin/google-chrome"
         elif browser_type == 'edge':
             return "/usr/bin/microsoft-edge"
