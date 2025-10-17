@@ -93,25 +93,9 @@ install_cursor_free_vip() {
     if [ -f "${binary_path}" ]; then
         echo -e "${GREEN}✅ Found existing installation file${NC}"
         echo -e "${CYAN}ℹ️ Location: ${binary_path}${NC}"
-        
-        # Check if running as root
-        if [ "$EUID" -ne 0 ]; then
-            echo -e "${YELLOW}⚠️ Requesting administrator privileges...${NC}"
-            if command -v sudo >/dev/null 2>&1; then
-                echo -e "${CYAN}ℹ️ Starting program with sudo...${NC}"
-                sudo chmod +x "${binary_path}"
-                sudo "${binary_path}"
-            else
-                echo -e "${YELLOW}⚠️ sudo not found, trying to run normally...${NC}"
-                chmod +x "${binary_path}"
-                "${binary_path}"
-            fi
-        else
-            # Already running as root
-            echo -e "${CYAN}ℹ️ Already running as root, starting program...${NC}"
-            chmod +x "${binary_path}"
-            "${binary_path}"
-        fi
+        echo -e "${CYAN}ℹ️ Running program without sudo (user: $USER)...${NC}"
+        chmod +x "${binary_path}"
+        "${binary_path}"
         return
     fi
     
