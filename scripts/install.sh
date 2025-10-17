@@ -87,7 +87,7 @@ install_cursor_free_vip() {
     local downloads_dir=$(get_downloads_dir)
     local binary_name="CursorFreeVIP_${VERSION}_${OS}"
     local binary_path="${downloads_dir}/${binary_name}"
-    local download_url="https://github.com/yeongpin/cursor-free-vip/releases/download/v${VERSION}/${binary_name}"
+    local download_url="https://github.com/aduy2408/cursor-free-vip/releases/download/v${VERSION}/${binary_name}"
     
     # Check if file already exists
     if [ -f "${binary_path}" ]; then
